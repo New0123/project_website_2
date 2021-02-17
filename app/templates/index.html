@@ -1,0 +1,22 @@
+<!-- Главная страница -->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="static/index.css">
+    </head>
+    <body>
+    {% block content %}
+       <!--  {% for post in posts %}-->
+        {% if current_user.is_anonymous %}
+            <font size="2" face="Arial">
+            <h3>Добро пожаловать на сайт товарооборота сети магазинов.</h3>
+            <h3><a href="{{ url_for('login') }}">Войти</a></h3>
+            <p>Если вы не зарегистрированы - обратитесь к администратору сайта.</p></font>
+            <link rel="stylesheet" type="text/css" href="static/post.css">
+            {% else %}
+            {% include 'top_sales.html' %} <!-- Подгружает на главную страницу две табилцы -->
+            {% include 'bar.html' %} <!-- Подгружает на главную страницу два графика -->
+        {% endif %}
+        {% endfor %}
+{% endblock %}
+    </body>
+</html>

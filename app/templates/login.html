@@ -1,0 +1,31 @@
+<!-- Вход в систему -->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="static/post.css">
+    </head>
+    <body>
+    {% block content %}
+    <h1><font size="5" face="Arial">Войти в систему</font></h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p><font size="2" face="Arial">
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}<br>
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </font></p>
+        <p><font size="2" face="Arial">
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </font></p>
+        <p><font size="2" face="Arial">{{ form.remember_me() }} {{ form.remember_me.label }}</font></p>
+        <p><font size="2" face="Arial">{{ form.submit() }}</font></p>
+    </form>
+    <p><font size="2" face="Arial">Новый пользователь? Обратитесь к администратору!<!-- <a href="{{ url_for('register') }}"></a> --></font></p>
+{% endblock %}
+    </body>
+</html>

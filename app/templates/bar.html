@@ -1,0 +1,71 @@
+<!-- Файл представления графиков на главной странице -->
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Гистограмма</title>
+   <script src="static/loader.js"></script>
+   <!-- Далее идет скрипт, который составляет график из данных взятых из базы -->
+  <script>
+   google.load("visualization", "1", {packages:["corechart"]}); 
+   google.setOnLoadCallback(drawChart);
+   function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+     ['Типы магазинов', 'кг (max за 3 месяца)', 'шт (max за 3 месяца)', 'кг (на последний месяц)', 'шт (на последний месяц)'],
+  {% for deliv in diff_mnt_sale %}
+    ['{{ deliv.types_shops_name }}', {{ deliv.sum_mnt_weight_sale }}, {{ deliv.sum_mnt_piece_sale }}, {{ deliv.sum_current_weight_sales }}, {{ deliv.sum_current_piece_sales }}],
+
+  {% endfor %}
+
+    ]);
+    var options = {
+     title: 'Динамика продаж магазинов категорий товаров',
+     hAxis: {title: 'Типы магазинов'},
+     vAxis: {title: 'Количество'}
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('oil'));
+    chart.draw(data, options);
+
+//Указано как будут называтся поля на сайте и из каких таблиц будут выводится данные из БД
+   var dataShops = google.visualization.arrayToDataTable([
+     ['Типы магазинов', 'кг (max за 3 месяца)', 'шт (max за 3 месяца)', 'кг (на последний месяц)', 'шт (на последний месяц)'],
+  {% for shop in crnt_over_shops_capacity %}
+    ['{{ shop.types_shops_name }} - {{ shop.types_goods_name }}', {{ shop.max_over_weight_capacity }}, {{ shop.max_over_piece_capacity }}, {{ shop.current_over_weight_capacity }}, {{ shop.current_over_piece_capacity }}],
+
+  {% endfor %}
+
+    ]);
+    var optionsShops = {
+     title: 'Динамика остатков товаров на складах магазинов',
+     hAxis: {title: 'Типы магазинов/типы товаров'},
+     vAxis: {title: 'Количество'}
+    };
+    var chartShops = new google.visualization.ColumnChart(document.getElementById('shops'));
+    chartShops.draw(dataShops, optionsShops);
+   }
+  </script> 
+
+ </head>
+ <body>     
+  <table border="0" width="100%" cellpadding="5">
+   <tr width="50%">
+    <td>
+ <div id="oil" style="width: 600px; height: 400px;"></div>
+        <font size="2" face="Arial">
+          <div align="left"><a href="/sale_fruit">&#8195 Подробнее по динамике продаж</a>
+          </div>
+          </font>
+    </td>
+            <td width="2%">
+        </td>
+    <td>
+ <div id="shops" style="width: 600px; height: 400px;"></div> 
+         <font size="2" face="Arial">
+          <div align="left"><a href="/fruit">&#8195 Подробнее по динамике остатков</a>
+          </div>
+          </font>
+    </td>
+   </tr>
+ </table>
+ </body>
+ </html>

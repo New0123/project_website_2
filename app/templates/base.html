@@ -1,0 +1,33 @@
+<!-- Меню -->
+<html>
+    <head>
+    {% if title %}
+    <title>{{ title }} - Товарооборот</title>
+    {% else %}
+    <title></title>
+    {% endif %}
+    </head>
+    <body>
+        <div><font size="2" face="Arial">
+            Товарооборот:
+            <a href="{{ url_for('index') }}">На главную</a>
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Войти</a>
+            {% else %}
+            <a href="{{ url_for('user', username=current_user.username) }}">Профиль</a>
+            <a href="{{ url_for('logout') }}">Выйти</a>
+            {% endif %}
+        </font></div>
+        <hr><!-- Не используется на данный момент -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

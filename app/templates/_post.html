@@ -1,0 +1,14 @@
+<!-- Файл с постами, не используется в профиле пользователя, но можно добавить. Пользователь может написать какой-нибудь пост и он отобразится в его профиле. -->
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ url_for( 'static', filename='post.css' )}}">
+	</head>
+	<body>
+		<table>
+			<tr valign="top">
+				<td><img src="{{ post.author.avatar(36) }}"></td>
+				<td>{{ post.author.username }} says:<br>{{ post.body }}</td>
+			</tr>
+		</table>
+	</body>
+</html>

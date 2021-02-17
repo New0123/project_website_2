@@ -1,0 +1,64 @@
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="static/shop.css">
+		{% extends "base.html" %}
+	</head>
+	<body>
+	{% block content %}
+    <input class="form-control" type="text" placeholder="Поиск" id="search-text" onkeyup="tableSearch()">
+    <tr valign="top">
+        <th align="left"><font size="2" face="Arial">&#8195 <a href="/sale_shop">Продажи по месяцам в магазинах у дома</a></font></th>
+    </tr>
+    <tr valign="top">
+        <th align="left"><font size="2" face="Arial">&#8195 <a href="/sale_gipershop">Продажи по месяцам в гипермаркетах</a></font></th>
+    </tr>
+    <tr valign="top">
+        <th align="left"><font size="2" face="Arial">&#8195 Продажи по месяцам в супермаркетах</a></font></th>
+    </tr>
+    <table class="table table-striped" id="info-table" width="950px" border="1" cellpadding="5" cellspacing="1" valign="top" class="test">
+        <thead>
+            <th align="center" colspan="6"><font size="2" face="Arial">Продажи по месяцам в супермаркетах</font></th>
+                <tr>
+                    <th><font size="2" face="Arial">Текущая дата продажи</font></th>
+                    <th><font size="2" face="Arial">Имя магазина</font></th>
+                    <th><font size="2" face="Arial">Расположение магазина</font></th>
+                    <th><font size="2" face="Arial">Наименование продукта</font></th>
+                    <th><font size="2" face="Arial">Продажи</font></th>
+                    <th><font size="2" face="Arial">Еденицы измерения</font></th>
+                </tr>
+                {% for supershop in mnt_sale_supershop %}
+                <tr>
+                    <td>{{ supershop.sale_dt_crt }}</td>
+                    <td>{{ supershop.shop_name }}</td>
+                    <td>{{ supershop.shop_loc }}</td>
+                    <td>{{ supershop.types_good_name_ru }}</td>
+                    <td>{{ supershop.sum_sales }}</td>
+                    <td>{{ supershop.unit_name }}</td>
+                </tr>
+                {% endfor %}
+        </thead>
+    </table>
+    <script>
+    function tableSearch() {
+        var phrase = document.getElementById('search-text');
+        var table = document.getElementById('info-table');
+        var regPhrase = new RegExp(phrase.value, 'i');
+        var flag = false;
+        for (var i = 1; i < table.rows.length; i++) {
+            flag = false;
+            for (var j = table.rows[i].cells.length - 1; j >= 0; j--) {
+                flag = regPhrase.test(table.rows[i].cells[j].innerHTML);
+                if (flag) break;
+            }
+            if (flag) {
+                table.rows[i].style.display = "";
+            } else {
+                table.rows[i].style.display = "none";
+            }
+
+        }
+    }
+    </script>
+    {% endblock %}
+    </body>
+</html>

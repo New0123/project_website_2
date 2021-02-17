@@ -1,0 +1,29 @@
+<!-- Изменить профиль -->
+<html>
+	<head>
+		{% extends "base.html" %}
+	</head>
+	<body>
+	{% block content %}
+		<h1><font size="5" face="Arial">Изменить профиль</font></h1>
+		<form action="" method="post">
+			{{ form.hidden_tag() }}
+			<p><font size="2" face="Arial">
+				{{ form.username.label }}<br>
+				{{ form.username(size=32) }}<br>
+				{% for error in form.username.errors %} 
+				<span style="color: red;">[{{ error }}]</span><!-- если пишешь при изменении имени другое имя то он выдает ошибку -->
+				{% endfor %}
+			</font></p>
+			<p><font size="2" face="Arial">
+				{{ form.about_me.label }}<br>
+				{{ form.about_me(color=50, rows=4) }}<br>
+				{% for error in form.about_me.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+				{% endfor %}
+			</font></p>
+			<p>{{ form.submit() }}</p>
+		</form>
+{% endblock %}
+	</body>
+</html>

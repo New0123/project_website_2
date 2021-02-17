@@ -1,0 +1,7 @@
+__pycache__/
+migrations/
+postgres_db/
+venv/
+*.log
+*.log.*
+app.db

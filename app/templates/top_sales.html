@@ -1,0 +1,70 @@
+<html>
+	<head>
+        <link rel="stylesheet" type="text/css" href="static/index.css">
+		{% extends "base.html" %}
+	</head>
+	<body>
+	{% block content %}
+    <table width="100%" border="0" cellpadding="5" cellspacing="0" valign="top" class="test">
+        <tr valign="top">
+            <th width="45%" align="left"><font size="2" face="Arial">&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195 Максимум продаж за месяц по типам магазинов</font></th>
+            <th width="2%">&#8195</th>
+            <th width="45%" align="left"><font size="2" face="Arial">&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195 Максимальные остатки товаров на складах магазинов</font></th>
+        </tr>
+        <tr valign="top">
+        <td width="45%">
+            <table width="600px" border="1" cellpadding="5" cellspacing="1" valign="top" class="test">
+                <tr>
+                    <th><font size="2" face="Arial">Типы магазинов</font></th>
+                    <th><font size="2" face="Arial">Месяц.год продаж</font></th>
+                    <th><font size="2" face="Arial">Продажи, кг</font></th>
+                    <th><font size="2" face="Arial">Продажи, шт</font></th>
+                </tr>
+            {% for sales in top_sales %}
+                <tr>
+                    <td>{{ sales.types_shops_name }}</td>
+                    <td>{{ sales.sale_date }}</td>
+                    <td>{{ sales.sum_mnt_weight_sale }}</td>
+                    <td>{{ sales.sum_mnt_piece_sale }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        <font size="2" face="Arial">&#8195</font>
+        <font size="2" face="Arial">
+            <div align="left"><a href="/sale_shop">&#8195 Подробнее по максимуму продаж</a></div>
+        </font>
+        </td>
+        <td width="2%">
+        </td>
+        <td width="45%">
+            <table width="600px" border="1" cellpadding="5" cellspacing="1" valign="top" class="test">
+                <tr>
+                    <th><font size="2" face="Arial">Типы магазинов</font></th>
+                    <th><font size="2" face="Arial">Типы продуктов</font></th>
+                    <th><font size="2" face="Arial">Максимально, кг</font></th>
+                    <th><font size="2" face="Arial">Максимально, шт</font></th>
+                </tr>
+            {% for capacity in max_over_shops_capacity %}
+                <tr>
+                    <td>{{ capacity.types_shops_name }}</td>
+                    <td>{{ capacity.types_goods_name }}</td>
+                    <td>{{ capacity.max_over_weight_capacity }}</td>
+                    <td>{{ capacity.max_over_piece_capacity }}</td>
+                </tr>
+            {% endfor %}
+            </table>
+        <font size="2" face="Arial">&#8195</font>
+        <font size="2" face="Arial">
+            <div align="left"><a href="/shop_near_home">&#8195 Подробнее по максимальным остаткам</a></div>
+        </font>
+        </td>
+    </tr>
+        <tr>
+            <td></td>
+             <td width="2%"></td>
+            <td>&#8195</td>
+        </tr>
+    </table>
+    {% endblock %}
+    </body>
+</html>

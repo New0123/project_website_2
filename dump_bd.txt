@@ -1,0 +1,5 @@
+pg_dump --username=postgres --dbname=postgres --file=dump.sql --host=127.0.0.1 -W
+
+psql --username=postgres --dbname=postgres --file=project.sql --host=127.0.0.1 -W
+
+версия DBeaver - 7.2.4.202011011603
